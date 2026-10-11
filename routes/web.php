@@ -40,6 +40,14 @@ Route::prefix('{locale}')->where(['locale' => 'fa|en'])->group(function () {
     Route::get('/resume', [PageController::class, 'resume'])->name('resume.index');
     Route::get('/contact', [PageController::class, 'contact'])->name('contact.index');
     Route::post('/contact', [InquirySubmissionController::class, 'store'])->name('contact.store');
+
+    // Estimator & Lead Capture
+    Route::get('/estimator', [\App\Http\Controllers\EstimatorController::class, 'index'])->name('estimator.index');
+    Route::post('/estimator/calculate', [\App\Http\Controllers\EstimatorController::class, 'calculate'])->name('estimator.calculate');
+
+    // Meeting Booking
+    Route::get('/booking', [\App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
+    Route::post('/booking', [\App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
 });
 
 // Production Web Installer / Updater (ParsPack cPanel support)
