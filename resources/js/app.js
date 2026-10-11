@@ -87,17 +87,33 @@ Alpine.data('heroLab', () => ({
 }));
 
 // Export Hero Hybrid runner for landing page
-window.initHeroHybrid = async function(canvas, onFps) {
-    if (!canvas) return;
+window.initHeroHybrid = async function(container, onFps) {
+    if (!container) return;
     try {
         const { HeroHybridScene } = await import('./three/scenes/hero/HeroHybridScene.js');
-        const scene = new HeroHybridScene(canvas);
+        const scene = new HeroHybridScene(container);
         scene.init();
-        scene.start();
 
+        // FPS calculation using ticker
         if (onFps) {
-            scene.onFpsUpdate = onFps;
+            let frames = 0;
+            let prevTime = performance.now();
+            const fpsTicker = () => {
+                frames++;
+                const time = performance.now();
+                if (time >= prevTime + 1000) {
+                    const fps = Math.round((frames * 1000) / (time - prevTime));
+                    frames = 0;
+                    prevTime = time;
+                    onFps(fps);
+                }
+                if (!scene.isDisposed) {
+                    requestAnimationFrame(fpsTicker);
+                }
+            };
+            requestAnimationFrame(fpsTicker);
         }
+
         return scene;
     } catch (err) {
         console.warn('Hero Hybrid 3D scene initialization error:', err);

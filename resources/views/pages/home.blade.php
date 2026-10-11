@@ -6,8 +6,6 @@
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-12 pb-20">
         <!-- Three.js Canvas Container -->
         <div class="absolute inset-0 z-0 pointer-events-auto" id="hero-three-container">
-            <canvas id="hero-webgl-canvas" class="w-full h-full block"></canvas>
-            
             <!-- Quality & FPS Controller (Discreet HUD) -->
             <div class="absolute bottom-6 start-6 z-20 flex items-center gap-2 bg-surface-base/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-border-subtle/40 text-[11px] font-mono text-content-tertiary">
                 <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
@@ -238,11 +236,11 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const canvas = document.getElementById('hero-webgl-canvas');
+        const container = document.getElementById('hero-three-container');
         const fpsCounter = document.getElementById('hero-fps-counter');
 
-        if (window.initHeroHybrid) {
-            window.initHeroHybrid(canvas, (fps) => {
+        if (window.initHeroHybrid && container) {
+            window.initHeroHybrid(container, (fps) => {
                 if (fpsCounter) fpsCounter.textContent = `${fps} FPS`;
             });
         }
