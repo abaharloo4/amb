@@ -83,13 +83,48 @@
                                 @endif
                             </label>
 
-                            @if ($fieldDef['type'] === 'textarea')
-                                <textarea 
-                                    id="{{ $fieldName }}"
-                                    name="{{ $fieldName }}"
-                                    rows="5"
-                                    class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
-                                >{{ $currentValue }}</textarea>
+                            @if ($fieldDef['type'] === 'textarea' || $fieldDef['type'] === 'rich_text')
+                                @if ($fieldDef['type'] === 'rich_text')
+                                    <div class="border border-border-subtle rounded-xl overflow-hidden bg-surface-subtle" x-data="{
+                                        format(cmd) {
+                                            const textarea = $refs.editorText;
+                                            const start = textarea.selectionStart;
+                                            const end = textarea.selectionEnd;
+                                            const text = textarea.value;
+                                            const selected = text.substring(start, end);
+                                            let replacement = '';
+                                            if (cmd === 'b') replacement = `**${selected || 'متن برجسته'}**`;
+                                            if (cmd === 'i') replacement = `*${selected || 'متن مورب'}*`;
+                                            if (cmd === 'h2') replacement = `\n## ${selected || 'عنوان بخش'}\n`;
+                                            if (cmd === 'quote') replacement = `\n> ${selected || 'نقل قول'}\n`;
+                                            if (cmd === 'code') replacement = `\n\`\`\`\n${selected || 'کد'}\n\`\`\`\n`;
+                                            textarea.setRangeText(replacement, start, end, 'end');
+                                            textarea.dispatchEvent(new Event('input'));
+                                        }
+                                    }">
+                                        <div class="flex items-center gap-1 p-2 border-b border-border-subtle bg-surface-base/60 text-xs">
+                                            <button type="button" @click="format('b')" class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-card font-bold" title="برجسته">B</button>
+                                            <button type="button" @click="format('i')" class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-card italic" title="مورب">I</button>
+                                            <button type="button" @click="format('h2')" class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-card font-bold" title="سرتیتر H2">H2</button>
+                                            <button type="button" @click="format('quote')" class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-card" title="نقل قول">”</button>
+                                            <button type="button" @click="format('code')" class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-card font-mono" title="کد">&lt;/&gt;</button>
+                                        </div>
+                                        <textarea 
+                                            x-ref="editorText"
+                                            id="{{ $fieldName }}"
+                                            name="{{ $fieldName }}"
+                                            rows="8"
+                                            class="w-full bg-transparent border-0 focus:ring-0 text-content-primary p-3 text-sm outline-none font-sans"
+                                        >{{ $currentValue }}</textarea>
+                                    </div>
+                                @else
+                                    <textarea 
+                                        id="{{ $fieldName }}"
+                                        name="{{ $fieldName }}"
+                                        rows="5"
+                                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                                    >{{ $currentValue }}</textarea>
+                                @endif
 
                             @elseif ($fieldDef['type'] === 'select')
                                 <select 
