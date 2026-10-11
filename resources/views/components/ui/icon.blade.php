@@ -37,5 +37,5 @@
         'focusable' => 'false'
     ]) }}
 >
-    <use href="/build/icons.svg#icon-{{ $name }}"></use>
+    <use href="#icon-{{ $name }}"></use>
 </svg>

@@ -22,7 +22,8 @@ export class SceneBase {
 
         this.isRunning = false;
         this.isDisposed = false;
-        this.clock = new THREE.Clock();
+        this.startTime = performance.now();
+        this.lastTime = performance.now();
 
         this.onResizeBound = this.resize.bind(this);
     }
@@ -97,8 +98,10 @@ export class SceneBase {
     render() {
         if (!this.isRunning || this.isDisposed) return;
 
-        const dt = this.clock.getDelta();
-        const elapsed = this.clock.getElapsedTime();
+        const now = performance.now();
+        const dt = Math.min((now - this.lastTime) / 1000, 0.1);
+        const elapsed = (now - this.startTime) / 1000;
+        this.lastTime = now;
 
         if (this.pointer) {
             this.pointer.update();

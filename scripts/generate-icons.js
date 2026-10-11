@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 
 const ICONS_DIR = path.resolve('resources/icons');
-const OUTPUT_DIR = path.resolve('public/build');
-const OUTPUT_FILE = path.join(OUTPUT_DIR, 'icons.svg');
+const PUBLIC_DIR = path.resolve('public');
+const BLADE_COMPONENTS_DIR = path.resolve('resources/views/components/ui');
 
 // List of required icons from Docs/icons.md
 const REQUIRED_ICONS = [
@@ -37,8 +37,8 @@ const BRAND_ICONS = {
 if (!fs.existsSync(ICONS_DIR)) {
     fs.mkdirSync(ICONS_DIR, { recursive: true });
 }
-if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+if (!fs.existsSync(BLADE_COMPONENTS_DIR)) {
+    fs.mkdirSync(BLADE_COMPONENTS_DIR, { recursive: true });
 }
 
 let symbols = [];
@@ -48,28 +48,34 @@ REQUIRED_ICONS.forEach((name) => {
     const srcFile = path.join(lucidePath, `${name}.svg`);
     if (fs.existsSync(srcFile)) {
         let content = fs.readFileSync(srcFile, 'utf8');
-        // Save to resources/icons
         fs.writeFileSync(path.join(ICONS_DIR, `${name}.svg`), content);
 
-        // Strip outer svg tag and keep inner elements
         const inner = content
             .replace(/<svg[^>]*>/, '')
             .replace(/<\/svg>/, '')
             .trim();
 
         symbols.push(`  <symbol id="icon-${name}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">\n    ${inner}\n  </symbol>`);
-    } else {
-        console.warn(`Warning: Icon not found: ${name}`);
     }
 });
 
-// Add brand icons
 for (const [name, svgContent] of Object.entries(BRAND_ICONS)) {
     fs.writeFileSync(path.join(ICONS_DIR, `${name}.svg`), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">${svgContent}</svg>`);
     symbols.push(`  <symbol id="icon-${name}" viewBox="0 0 24 24">\n    ${svgContent}\n  </symbol>`);
 }
 
-const sprite = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none;">\n${symbols.join('\n')}\n</svg>\n`;
+const sprite = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none;" aria-hidden="true">\n${symbols.join('\n')}\n</svg>\n`;
 
-fs.writeFileSync(OUTPUT_FILE, sprite);
-console.log(`Successfully generated SVG sprite at ${OUTPUT_FILE} with ${symbols.length} icons.`);
+// 1. Write to public/icons.svg
+fs.writeFileSync(path.join(PUBLIC_DIR, 'icons.svg'), sprite);
+
+// 2. Write to public/build/icons.svg (if build folder exists)
+const buildDir = path.resolve('public/build');
+if (fs.existsSync(buildDir)) {
+    fs.writeFileSync(path.join(buildDir, 'icons.svg'), sprite);
+}
+
+// 3. Write to Blade component for 100% reliable zero-request inline sprite
+fs.writeFileSync(path.join(BLADE_COMPONENTS_DIR, 'sprite.blade.php'), sprite);
+
+console.log(`Generated sprite with ${symbols.length} icons in public/icons.svg and resources/views/components/ui/sprite.blade.php`);

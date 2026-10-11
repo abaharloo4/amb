@@ -18,6 +18,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-primary text-content-primary antialiased transition-colors duration-normal">
+    <!-- Global SVG Sprite -->
+    <x-ui.sprite />
+
     <!-- Header / Navbar -->
     <header class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-edge transition-colors duration-normal">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">

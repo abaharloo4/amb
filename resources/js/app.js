@@ -46,9 +46,10 @@ Alpine.store('locale', {
     },
 });
 
-// Hero 3D Lab Alpine Component
+// Hero 3D Lab non-reactive instance (prevents Alpine reactivity proxy on Three.js objects)
+let activeHeroLab = null;
+
 Alpine.data('heroLab', () => ({
-    lab: null,
     direction: 'Hybrid',
     tier: 'high',
     fps: 60,
@@ -57,8 +58,11 @@ Alpine.data('heroLab', () => ({
         const container = this.$refs.canvasContainer;
         if (container) {
             import('./three/HeroLab').then(({ HeroLab }) => {
-                this.lab = new HeroLab(container);
-                this.lab.loadDirection(this.direction);
+                if (activeHeroLab) {
+                    activeHeroLab.destroy();
+                }
+                activeHeroLab = new HeroLab(container);
+                activeHeroLab.loadDirection(this.direction);
             });
 
             window.addEventListener('amb:fps-updated', (e) => {
@@ -69,12 +73,16 @@ Alpine.data('heroLab', () => ({
 
     setDirection(dir) {
         this.direction = dir;
-        if (this.lab) this.lab.loadDirection(dir);
+        if (activeHeroLab) {
+            activeHeroLab.loadDirection(dir);
+        }
     },
 
     setTier(t) {
         this.tier = t;
-        if (this.lab) this.lab.setQuality(t);
+        if (activeHeroLab) {
+            activeHeroLab.setQuality(t);
+        }
     },
 }));
 
