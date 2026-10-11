@@ -18,7 +18,7 @@ class PortfolioController extends Controller
         );
 
         $projects = Project::with(['translations', 'technologies'])
-            ->orderBy('sort_order')
+            ->orderBy('order')
             ->paginate(9);
 
         return view('pages.portfolio.index', compact('seo', 'projects', 'locale'));

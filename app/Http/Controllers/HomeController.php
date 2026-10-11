@@ -21,8 +21,8 @@ class HomeController extends Controller
         );
 
         $featuredProjects = Project::with(['translations', 'technologies'])
-            ->where('is_featured', true)
-            ->orderBy('sort_order')
+            ->where('featured', true)
+            ->orderBy('order')
             ->take(4)
             ->get();
 
