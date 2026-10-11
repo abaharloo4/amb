@@ -63,19 +63,15 @@
     <!-- Navigation Header -->
     <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-surface-base/80 border-b border-border-subtle/50 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand to-brand-glow p-[1px] shadow-glow">
-                    <div class="w-full h-full bg-surface-base rounded-2xl flex items-center justify-center transition-transform group-hover:scale-105">
-                        <span class="font-extrabold text-sm tracking-tighter bg-gradient-to-r from-brand to-brand-glow bg-clip-text text-transparent">AMB</span>
-                    </div>
-                </div>
+            <!-- Brand Logo with Authentic AMB Ribbon Monogram -->
+            <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="flex items-center gap-3.5 group">
+                <x-ui.amb-logo size="sm" variant="gradient" class="transition-transform group-hover:scale-105" />
                 <div class="flex flex-col">
                     <span class="font-bold text-sm tracking-tight text-content-primary group-hover:text-brand transition-colors">
                         {{ app()->getLocale() === 'fa' ? 'امیرمحمد بحرلو' : 'AmirMohammad Baharlou' }}
                     </span>
-                    <span class="text-[10px] text-content-tertiary uppercase tracking-widest font-mono">
-                        Senior Architect
+                    <span class="text-[10px] text-content-secondary uppercase tracking-widest font-mono">
+                        Design &bull; Develop &bull; Create
                     </span>
                 </div>
             </a>
@@ -183,11 +179,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
                 <div class="md:col-span-2 space-y-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand to-brand-glow p-[1px]">
-                            <div class="w-full h-full bg-surface-base rounded-xl flex items-center justify-center">
-                                <span class="font-extrabold text-xs text-brand">AMB</span>
-                            </div>
-                        </div>
+                        <x-ui.amb-logo size="sm" variant="gradient" />
                         <span class="font-bold text-base text-content-primary">امیرمحمد بحرلو</span>
                     </div>
                     <p class="text-xs text-content-secondary leading-relaxed max-w-md">
