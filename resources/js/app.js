@@ -86,6 +86,24 @@ Alpine.data('heroLab', () => ({
     },
 }));
 
+// Export Hero Hybrid runner for landing page
+window.initHeroHybrid = async function(canvas, onFps) {
+    if (!canvas) return;
+    try {
+        const { HeroHybridScene } = await import('./three/scenes/hero/HeroHybridScene.js');
+        const scene = new HeroHybridScene(canvas);
+        scene.init();
+        scene.start();
+
+        if (onFps) {
+            scene.onFpsUpdate = onFps;
+        }
+        return scene;
+    } catch (err) {
+        console.warn('Hero Hybrid 3D scene initialization error:', err);
+    }
+};
+
 Alpine.start();
 
 // Initialize GSAP presets on load

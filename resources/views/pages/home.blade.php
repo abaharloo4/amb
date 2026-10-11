@@ -236,27 +236,15 @@
 @endsection
 
 @push('scripts')
-<script type="module">
-    import { HeroHybridScene } from '/resources/js/three/scenes/hero/HeroHybridScene.js';
-
+<script>
     document.addEventListener('DOMContentLoaded', () => {
         const canvas = document.getElementById('hero-webgl-canvas');
-        if (!canvas) return;
+        const fpsCounter = document.getElementById('hero-fps-counter');
 
-        try {
-            const scene = new HeroHybridScene(canvas);
-            scene.init();
-            scene.start();
-
-            // FPS Listener
-            const fpsCounter = document.getElementById('hero-fps-counter');
-            if (fpsCounter) {
-                scene.onFpsUpdate = (fps) => {
-                    fpsCounter.textContent = `${fps} FPS`;
-                };
-            }
-        } catch (e) {
-            console.warn('WebGL Hero fallback active:', e);
+        if (window.initHeroHybrid) {
+            window.initHeroHybrid(canvas, (fps) => {
+                if (fpsCounter) fpsCounter.textContent = `${fps} FPS`;
+            });
         }
     });
 </script>
