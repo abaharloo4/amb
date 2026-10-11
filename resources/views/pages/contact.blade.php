@@ -31,7 +31,7 @@
             </div>
             <div class="overflow-hidden">
                 <span class="text-[11px] text-content-tertiary block">گیت‌هاب</span>
-                <a href="https://github.com/abaharloo4" target="_blank" class="text-xs font-bold text-content-primary hover:text-accent truncate block">github.com/abaharloo4</a>
+                <a href="https://github.com/abaharloo4" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-content-primary hover:text-accent truncate block">github.com/abaharloo4</a>
             </div>
         </div>
 

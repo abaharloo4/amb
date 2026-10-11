@@ -39,15 +39,15 @@ Route::prefix('{locale}')->where(['locale' => 'fa|en'])->group(function () {
     Route::get('/services', [PageController::class, 'services'])->name('services.index');
     Route::get('/resume', [PageController::class, 'resume'])->name('resume.index');
     Route::get('/contact', [PageController::class, 'contact'])->name('contact.index');
-    Route::post('/contact', [InquirySubmissionController::class, 'store'])->name('contact.store');
+    Route::post('/contact', [InquirySubmissionController::class, 'store'])->name('contact.store')->middleware('throttle:6,1');
 
     // Estimator & Lead Capture
     Route::get('/estimator', [\App\Http\Controllers\EstimatorController::class, 'index'])->name('estimator.index');
-    Route::post('/estimator/calculate', [\App\Http\Controllers\EstimatorController::class, 'calculate'])->name('estimator.calculate');
+    Route::post('/estimator/calculate', [\App\Http\Controllers\EstimatorController::class, 'calculate'])->name('estimator.calculate')->middleware('throttle:15,1');
 
     // Meeting Booking
     Route::get('/booking', [\App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
-    Route::post('/booking', [\App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
+    Route::post('/booking', [\App\Http\Controllers\BookingController::class, 'store'])->name('booking.store')->middleware('throttle:6,1');
 });
 
 // Production Web Installer / Updater (ParsPack cPanel support)
@@ -57,7 +57,7 @@ Route::get('/_update', [SystemInstallerController::class, 'update'])->name('syst
 // Admin Authentication
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store')->middleware('throttle:10,1');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
     // Authenticated Admin Shell

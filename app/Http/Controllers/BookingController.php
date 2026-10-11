@@ -43,12 +43,12 @@ class BookingController extends Controller
         $start = Carbon::parse($validated['slot_date'] . ' ' . $validated['slot_time']);
         $end = (clone $start)->addMinutes(30);
 
-        // Atomic Concurrency Locking for Slot Reservation
+        // Atomic Concurrency Locking for Slot Reservation with strict overlap formula
         $appointment = DB::transaction(function () use ($validated, $start, $end) {
             $conflict = Appointment::where('status', '!=', 'cancelled')
                 ->where(function ($q) use ($start, $end) {
-                    $q->whereBetween('start_time', [$start, $end])
-                      ->orWhereBetween('end_time', [$start, $end]);
+                    $q->where('start_time', '<', $end)
+                      ->where('end_time', '>', $start);
                 })
                 ->lockForUpdate()
                 ->exists();

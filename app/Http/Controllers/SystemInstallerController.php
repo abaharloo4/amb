@@ -23,9 +23,11 @@ class SystemInstallerController extends Controller
             ], 403);
         }
 
-        // Verify security token if configured
-        $expectedToken = config('app.install_token', env('INSTALL_TOKEN', 'amb_secret_setup'));
-        if ($request->query('token') !== $expectedToken) {
+        // Verify security token using hash_equals and app key or explicit INSTALL_TOKEN
+        $expectedToken = config('app.install_token', env('INSTALL_TOKEN', config('app.key')));
+        $token = (string) $request->input('token');
+
+        if (empty($token) || empty($expectedToken) || ! hash_equals((string) $expectedToken, $token)) {
             return response()->json([
                 'status' => 'unauthorized',
                 'message' => 'توکن امنیتی نامعتبر است (?token=...).',
@@ -68,8 +70,10 @@ class SystemInstallerController extends Controller
      */
     public function update(Request $request)
     {
-        $expectedToken = config('app.install_token', env('INSTALL_TOKEN', 'amb_secret_setup'));
-        if ($request->query('token') !== $expectedToken) {
+        $expectedToken = config('app.install_token', env('INSTALL_TOKEN', config('app.key')));
+        $token = (string) $request->input('token');
+
+        if (empty($token) || empty($expectedToken) || ! hash_equals((string) $expectedToken, $token)) {
             return response()->json([
                 'status' => 'unauthorized',
                 'message' => 'توکن امنیتی نامعتبر است (?token=...).',
