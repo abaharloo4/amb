@@ -8,6 +8,7 @@ use App\Admin\Crud\Resources\PostResource;
 use App\Admin\Crud\Resources\InquiryResource;
 use App\Admin\Crud\Resources\ServiceResource;
 use App\Admin\Crud\Resources\ExperienceResource;
+use App\Admin\Crud\Resources\AppointmentResource;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
@@ -24,6 +25,7 @@ class AdminServiceProvider extends ServiceProvider
             $manager->register(new PostResource());
             $manager->register(new ExperienceResource());
             $manager->register(new InquiryResource());
+            $manager->register(new AppointmentResource());
             return $manager;
         });
     }
