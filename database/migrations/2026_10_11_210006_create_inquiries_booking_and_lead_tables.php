@@ -41,9 +41,13 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone')->nullable();
             $table->string('company')->nullable();
+            $table->string('service_type', 100)->nullable();
             $table->string('budget_range')->nullable();
+            $table->string('subject')->nullable();
+            $table->text('message')->nullable();
             $table->string('status', 20)->default('new')->index();
             $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();
             $table->softDeletes();

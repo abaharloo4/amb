@@ -26,6 +26,14 @@ class TextNormalizer
     }
 
     /**
+     * Alias for clean.
+     */
+    public static function normalize(string $text): string
+    {
+        return self::clean($text);
+    }
+
+    /**
      * Convert Persian and Arabic digits to English digits.
      */
     public static function toEnglishDigits(string $text): string

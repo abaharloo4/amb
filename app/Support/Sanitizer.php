@@ -32,4 +32,12 @@ class Sanitizer
         $tagList = '<' . implode('><', self::$allowedTags) . '>';
         return strip_tags($html, $tagList);
     }
+
+    /**
+     * Clean plain text input (strip all HTML and special control characters).
+     */
+    public static function cleanPlainText(string $text): string
+    {
+        return trim(strip_tags($text));
+    }
 }

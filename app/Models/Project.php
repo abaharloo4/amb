@@ -9,15 +9,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Project extends Model
 {
     protected $fillable = [
-        'slug',
-        'featured_image',
-        'is_featured',
+        'public_id',
+        'featured',
+        'status',
+        'order',
         'is_demo',
-        'sort_order',
+        'github_url',
+        'live_url',
         'published_at',
-        'stats',
-        'links',
+        'created_by',
     ];
+
+    /**
+     * Get primary slug from active or fallback translation.
+     */
+    public function getSlugAttribute(): string
+    {
+        return $this->translation()?->slug ?? 'project-' . $this->id;
+    }
 
     protected function casts(): array
     {
