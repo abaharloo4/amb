@@ -107,7 +107,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             @forelse ($featuredProjects as $project)
                 @php $trans = $project->translation($locale); @endphp
-                <div class="group relative rounded-3xl bg-surface-card border border-border-subtle/80 overflow-hidden hover:border-brand/40 transition-all duration-300 shadow-sm flex flex-col">
+                <div data-motion="cardHover" class="group relative rounded-3xl bg-surface-card border border-border-subtle/80 overflow-hidden hover:border-brand/40 transition-all duration-300 shadow-sm flex flex-col will-change-transform">
                     <!-- Project Preview Card Header -->
                     <div class="h-60 bg-gradient-to-br from-surface-subtle via-surface-base to-brand/10 p-6 flex flex-col justify-between relative overflow-hidden">
                         <div class="flex items-center justify-between z-10">

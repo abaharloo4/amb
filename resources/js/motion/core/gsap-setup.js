@@ -73,6 +73,51 @@ export const presets = {
             },
         });
     },
+
+    scrollReveal: (element, options = {}) => {
+        if (isReducedMotion()) {
+            element.style.opacity = '1';
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    presets.reveal(entry.target, options);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: options.threshold || 0.15 });
+
+        observer.observe(element);
+    },
+
+    cardHover: (element) => {
+        if (isReducedMotion()) return;
+
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+            gsap.to(element, {
+                rotateY: x * 8,
+                rotateX: -y * 8,
+                transformPerspective: 800,
+                duration: 0.3,
+                ease: 'power1.out',
+            });
+        });
+
+        element.addEventListener('mouseleave', () => {
+            gsap.to(element, {
+                rotateY: 0,
+                rotateX: 0,
+                duration: 0.5,
+                ease: 'power2.out',
+            });
+        });
+    },
 };
 
 export const scanMotion = (root = document) => {
