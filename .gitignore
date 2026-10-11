@@ -1,0 +1,55 @@
+# Environment & Secrets
+.env
+.env.backup
+.env.production
+.env.*.local
+*.env
+PROBE_RESULT.json
+
+# Dependencies
+/vendor/
+/node_modules/
+composer.phar
+
+# Frontend & Build
+/public/build/
+/public/hot
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Laravel Storage & Framework Cache
+/storage/*.key
+/storage/app/*
+!/storage/app/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+
+# Release Packages
+/dist/
+/release/
+*.zip
+checksums.sha256
+
+# Testing & Static Analysis
+/.phpunit.cache
+/coverage/
+.pest/
+
+# IDE & System Files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
