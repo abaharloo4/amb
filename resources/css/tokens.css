@@ -1,127 +1,128 @@
 :root {
-    /* Brand Raw Palette */
-    --color-deep-teal: #18424E;
-    --color-stormy-teal: #29665F;
-    --color-golden-orange: #F49D07;
-    --color-carbon-black: #1F1F1F;
-    --color-silver: #BABABA;
-    --color-mist-white: #F4F7F6;
-    --color-pure-white: #FFFFFF;
+    color-scheme: light;
 
-    /* Light Theme Semantics (Default) */
-    --bg-primary: #F4F7F6;
-    --bg-surface: #FFFFFF;
-    --bg-elevated: #FFFFFF;
-    --bg-brand: #18424E;
-
-    --text-primary: #1F1F1F;
-    --text-heading: #18424E;
-    --text-secondary: #4B5B5F;
-    --text-on-brand: #FFFFFF;
-    --text-disabled: #8E9B9E;
-
-    --border-color: rgb(24 66 78 / 0.16);
-    --border-strong: rgb(24 66 78 / 0.32);
-
+    /* Brand Official Palette */
     --brand-primary: #18424E;
     --brand-secondary: #29665F;
     --brand-accent: #F49D07;
+
+    --neutral-carbon: #1F1F1F;
+    --neutral-silver: #BABABA;
+    --neutral-mist: #F4F7F6;
+    --neutral-white: #FFFFFF;
+
+    /* Extended Color Tokens */
+    --teal-dark: #10313A;
+    --teal-light: #3D8178;
+    --teal-highlight: #79CCBB;
+    --carbon-deep: #171A1A;
+    --carbon-surface: #272C2B;
+    --carbon-elevated: #303735;
+    --mist-elevated: #EAF0ED;
+    --text-light-secondary: #4B5A58;
+    --orange-light: #FFC45C;
+    --border-light: #DCE5E1;
+    --border-dark: #3A4442;
+
+    /* Semantic Light Theme */
+    --bg-primary: #F4F7F6;
+    --bg-surface: #FFFFFF;
+    --bg-elevated: #EAF0ED;
+
+    --text-primary: #18424E;
+    --text-secondary: #4B5A58;
+    --text-heading: #18424E;
+
+    --border-color: #DCE5E1;
     --link-color: #29665F;
+    --focus-ring: #8A5A00;
 
     --button-primary-bg: #18424E;
     --button-primary-text: #FFFFFF;
     --button-accent-bg: #F49D07;
     --button-accent-text: #1F1F1F;
-    --focus-ring: #18424E;
 
-    /* Status Colors (Light Theme - Tested AA Contrast) */
-    --status-success: #1B7A47;
-    --status-warning: #8F5F00;
-    --status-error: #C2362B;
-    --status-info: #1F6FB2;
+    /* Semantic Status Colors (Light Theme) */
+    --status-success: #216E4E;
+    --status-warning: #8A5A00;
+    --status-error: #B42318;
+    --status-info: #245C9C;
 
-    /* State Interactions via oklab mixing */
-    --bg-hover: color-mix(in oklab, var(--text-primary) 5%, transparent);
-    --bg-active: color-mix(in oklab, var(--text-primary) 10%, transparent);
+    /* Spacing & Layout Tokens */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-full: 9999px;
 
-    /* Shadows (Light Theme) */
-    --shadow-sm: 0 1px 2px 0 rgb(24 66 78 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(24 66 78 / 0.08), 0 2px 4px -2px rgb(24 66 78 / 0.05);
-    --shadow-lg: 0 10px 15px -3px rgb(24 66 78 / 0.10), 0 4px 6px -4px rgb(24 66 78 / 0.05);
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
 
-    /* 3D Scene Tokens (Light) */
-    --scene-bg: #F4F7F6;
-    --scene-structure: #18424E;
-    --scene-line: #29665F;
-    --scene-particle: #F49D07;
-    --scene-glow: rgb(244 157 7 / 0.3);
+    --container-max: 80rem;
+    --content-max: 48rem;
+
+    /* Motion Tokens (design.md) */
+    --motion-fast: 120ms;
+    --motion-standard: 220ms;
+    --motion-medium: 400ms;
+    --motion-slow: 700ms;
+    --motion-display: 1000ms;
+    --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
     /* Typography */
     --font-sans: 'Vazirmatn', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-    /* Radii */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-    --radius-full: 9999px;
-
-    /* Motion Tokens */
-    --motion-duration-fast: 150ms;
-    --motion-duration-normal: 250ms;
-    --motion-duration-slow: 450ms;
-    --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-    --motion-ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Three.js Scene Tokens (Light) */
+    --scene-bg: #F4F7F6;
+    --scene-structure: #18424E;
+    --scene-line: #29665F;
+    --scene-particle: #F49D07;
+    --scene-glow: rgb(244 157 7 / 0.3);
 }
 
 [data-theme="dark"] {
-    /* Dark Theme Semantics */
+    color-scheme: dark;
+
+    /* Semantic Dark Theme */
+    --brand-primary: #29665F;
+    --brand-secondary: #79CCBB;
+    --brand-accent: #F49D07;
+
     --bg-primary: #1F1F1F;
-    --bg-surface: #262A2B;
-    --bg-elevated: #2E3436;
-    --bg-brand: #18424E;
+    --bg-surface: #272C2B;
+    --bg-elevated: #303735;
 
     --text-primary: #F4F7F6;
-    --text-heading: #F4F7F6;
     --text-secondary: #BABABA;
-    --text-on-brand: #FFFFFF;
-    --text-disabled: #666666;
+    --text-heading: #F4F7F6;
 
-    --border-color: rgb(186 186 186 / 0.16);
-    --border-strong: rgb(186 186 186 / 0.32);
-
-    --brand-primary: #18424E;
-    --brand-secondary: #29665F;
-    --brand-accent: #F49D07;
-    --link-color: #5FB3A6;
+    --border-color: #3A4442;
+    --link-color: #79CCBB;
+    --focus-ring: #FFC45C;
 
     --button-primary-bg: #29665F;
     --button-primary-text: #FFFFFF;
     --button-accent-bg: #F49D07;
     --button-accent-text: #1F1F1F;
-    --focus-ring: #F49D07;
 
-    /* Status Colors (Dark Theme - Tested AA Contrast) */
-    --status-success: #4CC38A;
-    --status-warning: #E3B341;
-    --status-error: #FF7B72;
-    --status-info: #6CB6FF;
+    /* Semantic Status Colors (Dark Theme) */
+    --status-success: #65C99A;
+    --status-warning: #FFC45C;
+    --status-error: #FF8C82;
+    --status-info: #8AB8F0;
 
-    /* State Interactions via oklab mixing */
-    --bg-hover: color-mix(in oklab, var(--text-primary) 6%, transparent);
-    --bg-active: color-mix(in oklab, var(--text-primary) 12%, transparent);
-
-    /* Shadows (Dark Theme - Depth via border and elevation) */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.35);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.45), 0 2px 4px -2px rgb(0 0 0 / 0.35);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.55), 0 4px 6px -4px rgb(0 0 0 / 0.45);
-
-    /* 3D Scene Tokens (Dark) */
+    /* Three.js Scene Tokens (Dark) */
     --scene-bg: #1F1F1F;
-    --scene-structure: #29665F;
-    --scene-line: #5FB3A6;
+    --scene-structure: #18424E;
+    --scene-line: #29665F;
+    --scene-highlight: #79CCBB;
     --scene-particle: #F49D07;
     --scene-glow: rgb(244 157 7 / 0.4);
 }
