@@ -1,0 +1,44 @@
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: var(--font-sans);
+        transition: background-color var(--motion-duration-normal) var(--motion-ease-out),
+                    color var(--motion-duration-normal) var(--motion-ease-out);
+    }
+
+    /* Accessibility Focus Ring */
+    :focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 2px;
+    }
+
+    /* Headings default to brand heading color */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text-heading);
+        font-weight: 700;
+        letter-spacing: 0;
+    }
+
+    /* Selection highlight matching brand accent */
+    ::selection {
+        background-color: var(--brand-accent);
+        color: var(--color-carbon-black);
+    }
+
+    /* Respect user preference for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        *, ::before, ::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}

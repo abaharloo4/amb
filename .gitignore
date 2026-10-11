@@ -5,6 +5,8 @@
 .env.*.local
 *.env
 PROBE_RESULT.json
+*.sqlite
+*.sqlite-journal
 
 # Dependencies
 /vendor/
