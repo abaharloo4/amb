@@ -355,11 +355,19 @@
                     <span class="text-xs font-semibold text-content-secondary ms-1">جهت بصری:</span>
                     <button
                         type="button"
+                        x-on:click="setDirection('Hybrid')"
+                        :class="direction === 'Hybrid' ? 'bg-brand-accent text-[#1F1F1F] font-bold shadow-sm ring-2 ring-brand-accent/50' : 'bg-action-hover text-content-primary hover:bg-edge'"
+                        class="px-3 py-1.5 rounded-md text-xs transition-all cursor-pointer"
+                    >
+                        ترکیبی: Signal Lattice + Orbital Core (پیشنهاد معمار)
+                    </button>
+                    <button
+                        type="button"
                         x-on:click="setDirection('A')"
                         :class="direction === 'A' ? 'bg-brand-accent text-[#1F1F1F] font-bold shadow-sm' : 'bg-action-hover text-content-primary hover:bg-edge'"
                         class="px-3 py-1.5 rounded-md text-xs transition-all cursor-pointer"
                     >
-                        جهت A: Signal Lattice (توصیه اول)
+                        جهت A: Lattice
                     </button>
                     <button
                         type="button"
@@ -367,7 +375,7 @@
                         :class="direction === 'B' ? 'bg-brand-accent text-[#1F1F1F] font-bold shadow-sm' : 'bg-action-hover text-content-primary hover:bg-edge'"
                         class="px-3 py-1.5 rounded-md text-xs transition-all cursor-pointer"
                     >
-                        جهت B: Orbital Structure
+                        جهت B: Orbital
                     </button>
                     <button
                         type="button"
@@ -375,7 +383,7 @@
                         :class="direction === 'C' ? 'bg-brand-accent text-[#1F1F1F] font-bold shadow-sm' : 'bg-action-hover text-content-primary hover:bg-edge'"
                         class="px-3 py-1.5 rounded-md text-xs transition-all cursor-pointer"
                     >
-                        جهت C: Data Terrain
+                        جهت C: Terrain
                     </button>
                 </div>
 

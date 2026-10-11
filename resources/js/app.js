@@ -49,7 +49,7 @@ Alpine.store('locale', {
 // Hero 3D Lab Alpine Component
 Alpine.data('heroLab', () => ({
     lab: null,
-    direction: 'A',
+    direction: 'Hybrid',
     tier: 'high',
     fps: 60,
 

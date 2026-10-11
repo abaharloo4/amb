@@ -1,12 +1,13 @@
 import { HeroLatticeScene } from './scenes/hero/HeroLatticeScene';
 import { HeroOrbitalScene } from './scenes/hero/HeroOrbitalScene';
 import { HeroTerrainScene } from './scenes/hero/HeroTerrainScene';
+import { HeroHybridScene } from './scenes/hero/HeroHybridScene';
 
 export class HeroLab {
     constructor(container) {
         this.container = container;
         this.currentScene = null;
-        this.currentDirection = 'A';
+        this.currentDirection = 'Hybrid';
         this.currentTier = 'high';
 
         // Performance monitor
@@ -55,6 +56,9 @@ export class HeroLab {
         }
 
         switch (direction) {
+            case 'Hybrid':
+                this.currentScene = new HeroHybridScene(this.container, { tier: this.currentTier });
+                break;
             case 'A':
                 this.currentScene = new HeroLatticeScene(this.container, { tier: this.currentTier });
                 break;
@@ -65,7 +69,7 @@ export class HeroLab {
                 this.currentScene = new HeroTerrainScene(this.container, { tier: this.currentTier });
                 break;
             default:
-                this.currentScene = new HeroLatticeScene(this.container, { tier: this.currentTier });
+                this.currentScene = new HeroHybridScene(this.container, { tier: this.currentTier });
         }
 
         this.currentScene.init();
