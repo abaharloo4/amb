@@ -13,7 +13,7 @@ const REQUIRED_ICONS = [
     'download', 'upload', 'link', 'filter', 'arrow-up-down', 'layout-grid', 'list',
     'eye', 'eye-off', 'pencil', 'trash-2', 'save', 'more-horizontal', 'more-vertical',
     'calendar', 'clock', 'bell', 'settings', 'user', 'users', 'lock', 'unlock',
-    'home', 'globe', 'sun', 'moon', 'monitor',
+    'home', 'globe', 'sun', 'moon', 'monitor', 'sparkles', 'zap', 'server', 'book-open',
     // Navigation
     'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'arrow-up-right',
     'chevron-right', 'chevron-left', 'chevron-up', 'chevron-down',

@@ -25,6 +25,7 @@ Alpine.store('theme', {
     setTheme(theme) {
         this.current = theme;
         document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.toggle('dark', theme === 'dark');
         localStorage.setItem('amb_theme', theme);
         window.dispatchEvent(new CustomEvent('amb:theme-changed', { detail: { theme } }));
     },

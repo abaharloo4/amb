@@ -20,6 +20,15 @@ class Project extends Model
         'created_by',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($project) {
+            if (empty($project->public_id)) {
+                $project->public_id = (string) \Illuminate\Support\Str::ulid();
+            }
+        });
+    }
+
     /**
      * Get primary slug from active or fallback translation.
      */
@@ -31,12 +40,10 @@ class Project extends Model
     protected function casts(): array
     {
         return [
-            'is_featured' => 'boolean',
+            'featured' => 'boolean',
             'is_demo' => 'boolean',
-            'sort_order' => 'integer',
+            'order' => 'integer',
             'published_at' => 'datetime',
-            'stats' => 'array',
-            'links' => 'array',
         ];
     }
 

@@ -66,7 +66,7 @@ class ProjectResource extends ResourceConfig
                 'sortable' => true,
                 'type' => 'text',
             ],
-            'is_featured' => [
+            'featured' => [
                 'label' => 'ویژه',
                 'sortable' => true,
                 'type' => 'boolean',
@@ -93,13 +93,13 @@ class ProjectResource extends ResourceConfig
                 'rules' => 'required|string|max:255',
                 'help' => 'شناسه یکتا برای نشانی اینترنتی (مثال: modern-fintech-app)',
             ],
-            'sort_order' => [
+            'order' => [
                 'label' => 'ترتیب نمایش',
                 'type' => 'number',
                 'rules' => 'nullable|integer',
                 'default' => 0,
             ],
-            'is_featured' => [
+            'featured' => [
                 'label' => 'نمایش در پروژه‌های برگزیده (Featured)',
                 'type' => 'checkbox',
                 'rules' => 'boolean',

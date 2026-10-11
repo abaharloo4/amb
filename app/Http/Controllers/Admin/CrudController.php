@@ -42,7 +42,18 @@ class CrudController extends Controller
         // Ordering
         $defaultOrder = $config->defaultOrder();
         $orderColumn = $request->query('order_by', $defaultOrder['column']);
-        $orderDirection = $request->query('order_dir', $defaultOrder['direction']);
+        $orderDirection = strtolower((string) $request->query('order_dir', $defaultOrder['direction']));
+
+        if (!in_array($orderDirection, ['asc', 'desc'], true)) {
+            $orderDirection = 'asc';
+        }
+
+        // Whitelist allowed sort columns from index columns and common columns
+        $allowedColumns = array_keys($config->columns());
+        $allowedColumns = array_merge($allowedColumns, ['id', 'created_at', 'updated_at', 'order']);
+        if (!in_array($orderColumn, $allowedColumns, true)) {
+            $orderColumn = $defaultOrder['column'] ?? 'id';
+        }
 
         $query->orderBy($orderColumn, $orderDirection);
 

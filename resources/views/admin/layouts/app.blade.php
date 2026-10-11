@@ -10,6 +10,7 @@
     <script>
         (function() {
             const savedTheme = localStorage.getItem('amb_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
             if (savedTheme === 'light') {
                 document.documentElement.classList.remove('dark');
             } else {
