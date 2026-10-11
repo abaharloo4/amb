@@ -30,7 +30,7 @@ Alpine.store('theme', {
     },
 });
 
-// Direction Controller Store (for development & language toggling)
+// Direction Controller Store
 Alpine.store('locale', {
     dir: document.documentElement.getAttribute('dir') || 'rtl',
     lang: document.documentElement.getAttribute('lang') || 'fa',
@@ -45,6 +45,38 @@ Alpine.store('locale', {
         window.dispatchEvent(new CustomEvent('amb:dir-changed', { detail: { dir: nextDir, lang: nextLang } }));
     },
 });
+
+// Hero 3D Lab Alpine Component
+Alpine.data('heroLab', () => ({
+    lab: null,
+    direction: 'A',
+    tier: 'high',
+    fps: 60,
+
+    init() {
+        const container = this.$refs.canvasContainer;
+        if (container) {
+            import('./three/HeroLab').then(({ HeroLab }) => {
+                this.lab = new HeroLab(container);
+                this.lab.loadDirection(this.direction);
+            });
+
+            window.addEventListener('amb:fps-updated', (e) => {
+                this.fps = e.detail.fps;
+            });
+        }
+    },
+
+    setDirection(dir) {
+        this.direction = dir;
+        if (this.lab) this.lab.loadDirection(dir);
+    },
+
+    setTier(t) {
+        this.tier = t;
+        if (this.lab) this.lab.setQuality(t);
+    },
+}));
 
 Alpine.start();
 

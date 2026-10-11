@@ -322,6 +322,135 @@
             </x-ui.card>
         </section>
 
+        <!-- Section 9: Phase 2 Three.js Hero Laboratory -->
+        <section class="space-y-6" x-data="heroLab">
+            <div class="border-b border-edge pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-1">
+                        <span class="inline-block w-2 h-2 rounded-full bg-status-success animate-ping"></span>
+                        <x-ui.badge tone="accent" size="sm">Phase 2 Three.js Lab</x-ui.badge>
+                    </div>
+                    <h2 class="text-xl font-bold text-content-heading">۹. آزمایشگاه Three.js و جهت‌های بصری Hero</h2>
+                    <p class="text-xs text-content-secondary mt-1">تست تعاملی سه جهت پیشنهادی (A، B، C)، سطوح کیفیت سخت‌افزاری و مانیتورینگ زنده فریم‌ریت (FPS)</p>
+                </div>
+
+                <!-- Live Performance HUD -->
+                <div class="flex items-center gap-3 bg-surface border border-edge px-3.5 py-1.5 rounded-lg shadow-sm">
+                    <div class="flex items-center gap-1.5 font-mono text-xs">
+                        <span class="text-content-secondary">FPS:</span>
+                        <span class="font-bold" :class="fps >= 50 ? 'text-status-success' : (fps >= 30 ? 'text-status-warning' : 'text-status-error')" x-text="fps">60</span>
+                    </div>
+                    <span class="text-edge">|</span>
+                    <div class="text-[11px] font-mono text-content-secondary">
+                        <span x-text="'Direction ' + direction"></span> &bull;
+                        <span x-text="tier.toUpperCase()"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Toolbar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 bg-surface p-4 rounded-lg border border-edge">
+                <!-- Direction Buttons -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold text-content-secondary ms-1">جهت بصری:</span>
+                    <button
+                        type="button"
+                        x-on:click="setDirection('A')"
+                        :class="direction === 'A' ? 'bg-brand-accent text-[#1F1F1F] font-bold shadow-sm' : 'bg-action-hover text-content-primary hover:bg-edge'"
+                        class="px-3 py-1.5 rounded-md text-xs transition-all cursor-pointer"
+                    >
+                        جهت A: Signal Lattice (توصیه اول)
+                    </button>
+                    <button
+                        type="button"
+                        x-on:click="setDirection('B')"
+                        :class="direction === 'B' ? 'bg-brand-accent text-[#1F1F1F] font-bold shadow-sm' : 'bg-action-hover text-content-primary hover:bg-edge'"
+                        class="px-3 py-1.5 rounded-md text-xs transition-all cursor-pointer"
+                    >
+                        جهت B: Orbital Structure
+                    </button>
+                    <button
+                        type="button"
+                        x-on:click="setDirection('C')"
+                        :class="direction === 'C' ? 'bg-brand-accent text-[#1F1F1F] font-bold shadow-sm' : 'bg-action-hover text-content-primary hover:bg-edge'"
+                        class="px-3 py-1.5 rounded-md text-xs transition-all cursor-pointer"
+                    >
+                        جهت C: Data Terrain
+                    </button>
+                </div>
+
+                <!-- Quality Tiers -->
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-semibold text-content-secondary">سطح کیفیت:</span>
+                    <button
+                        type="button"
+                        x-on:click="setTier('high')"
+                        :class="tier === 'high' ? 'bg-brand text-white font-semibold' : 'text-content-secondary hover:text-content-primary'"
+                        class="px-2.5 py-1 rounded text-xs transition-all cursor-pointer"
+                    >
+                        High
+                    </button>
+                    <button
+                        type="button"
+                        x-on:click="setTier('medium')"
+                        :class="tier === 'medium' ? 'bg-brand text-white font-semibold' : 'text-content-secondary hover:text-content-primary'"
+                        class="px-2.5 py-1 rounded text-xs transition-all cursor-pointer"
+                    >
+                        Medium
+                    </button>
+                    <button
+                        type="button"
+                        x-on:click="setTier('low')"
+                        :class="tier === 'low' ? 'bg-brand text-white font-semibold' : 'text-content-secondary hover:text-content-primary'"
+                        class="px-2.5 py-1 rounded text-xs transition-all cursor-pointer"
+                    >
+                        Low
+                    </button>
+                    <button
+                        type="button"
+                        x-on:click="setTier('static')"
+                        :class="tier === 'static' ? 'bg-brand text-white font-semibold' : 'text-content-secondary hover:text-content-primary'"
+                        class="px-2.5 py-1 rounded text-xs transition-all cursor-pointer"
+                    >
+                        Static Fallback
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive 3D Canvas Showcase with HTML Overlay -->
+            <div class="relative w-full h-[520px] rounded-xl overflow-hidden border border-edge bg-[#1F1F1F] shadow-2xl">
+                <!-- Three.js Canvas Container -->
+                <div x-ref="canvasContainer" class="absolute inset-0 w-full h-full"></div>
+
+                <!-- Realistic HTML Hero Overlay (To test typography readability over 3D scenes) -->
+                <div class="absolute inset-0 pointer-events-none flex flex-col justify-center items-center text-center p-6 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+                    <div class="pointer-events-auto space-y-4 max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/30 border border-brand-accent/40 backdrop-blur-md text-white text-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping"></span>
+                            <span>خلاقیت بصری و مهندسی سیستم‌ها</span>
+                        </div>
+
+                        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight drop-shadow-md">
+                            امیرمحمد بهارلو
+                        </h2>
+
+                        <p class="text-sm sm:text-base text-gray-200 drop-shadow leading-relaxed">
+                            توسعه‌دهنده فول‌استک و معمار نرم‌افزار؛ خلق پلتفرم‌های مقیاس‌پذیر و تجربیات وب سه‌بعدی و تعاملی
+                        </p>
+
+                        <div class="flex items-center justify-center gap-3 pt-2">
+                            <x-ui.button variant="accent" iconTrailing="arrow-right">
+                                شروع همکاری
+                            </x-ui.button>
+                            <x-ui.button variant="outline" class="text-white border-white/30 hover:bg-white/10 backdrop-blur-md">
+                                مشاهده نمونه‌کارها
+                            </x-ui.button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
