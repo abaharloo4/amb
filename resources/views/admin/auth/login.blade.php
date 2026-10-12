@@ -28,43 +28,42 @@
     <div class="w-full max-w-md">
         <!-- Logo / Brand Header -->
         <div class="text-center mb-8">
-            <a href="/" class="inline-flex items-center gap-3 group">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand to-brand-glow p-[1px] shadow-glow">
-                    <div class="w-full h-full bg-surface-base rounded-2xl flex items-center justify-center transition-transform group-hover:scale-105">
-                        <x-ui.icon name="shield" class="w-6 h-6 text-brand" />
-                    </div>
-                </div>
+            <a href="/" class="inline-flex flex-col items-center gap-3 group">
+                <x-ui.amb-logo size="md" variant="gradient" class="transition-transform group-hover:scale-105" />
+                <span class="text-xs font-mono tracking-widest text-content-secondary uppercase">
+                    A M I R M O H A M M A D &bull; B A H A R L O U
+                </span>
             </a>
-            <h1 class="mt-4 text-2xl font-bold tracking-tight text-content-primary">
+            <h1 class="mt-4 text-2xl font-bold tracking-tight text-content-heading">
                 ورود به سامانه مدیریت
             </h1>
-            <p class="mt-1 text-sm text-content-secondary">
-                امیرمحمد بحرلو | پنل اختصاصی مدیریت پرتال
+            <p class="mt-1 text-xs text-content-secondary">
+                پنل اختصاصی مدیریت پرتال | Core v1.0
             </p>
         </div>
 
         <!-- Login Card -->
-        <div class="bg-surface-card border border-border-subtle/60 rounded-3xl p-7 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+        <x-ui.card class="p-8 shadow-2xl relative overflow-hidden">
             <!-- Ambient Card Glow -->
             <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
 
             @if (session('status'))
-                <div class="mb-5 p-3.5 rounded-xl bg-success/10 border border-success/20 text-success text-sm flex items-center gap-2">
-                    <x-ui.icon name="check-circle" class="w-5 h-5 flex-shrink-0" />
+                <div class="mb-5 p-3.5 rounded-md bg-status-success/15 border border-status-success/30 text-status-success text-sm flex items-center gap-2">
+                    <x-ui.icon name="check-circle-2" size="sm" class="flex-shrink-0" />
                     <span>{{ session('status') }}</span>
                 </div>
             @endif
 
             @if (session('error'))
-                <div class="mb-5 p-3.5 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm flex items-center gap-2">
-                    <x-ui.icon name="alert-triangle" class="w-5 h-5 flex-shrink-0" />
+                <div class="mb-5 p-3.5 rounded-md bg-status-error/15 border border-status-error/30 text-status-error text-sm flex items-center gap-2">
+                    <x-ui.icon name="alert-triangle" size="sm" class="flex-shrink-0" />
                     <span>{{ session('error') }}</span>
                 </div>
             @endif
 
             @if ($errors->any())
-                <div class="mb-5 p-3.5 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm">
+                <div class="mb-5 p-3.5 rounded-md bg-status-error/15 border border-status-error/30 text-status-error text-sm">
                     <ul class="list-disc list-inside space-y-1">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -150,15 +149,17 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button
+                <x-ui.button
                     type="submit"
-                    class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-brand to-brand-glow text-white font-medium text-sm shadow-glow hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                    variant="accent"
+                    size="lg"
+                    iconLeading="log-in"
+                    class="w-full"
                 >
-                    <x-ui.icon name="log-in" class="w-4 h-4" />
-                    <span>ورود به حساب کاربری</span>
-                </button>
+                    ورود به حساب کاربری
+                </x-ui.button>
             </form>
-        </div>
+        </x-ui.card>
 
         <!-- Back to site & Theme Switcher -->
         <div class="mt-6 flex items-center justify-between text-xs text-content-tertiary px-2">

@@ -10,14 +10,14 @@
         <div class="flex items-center gap-3">
             <a 
                 href="{{ route('admin.crud.index', $config->slug()) }}"
-                class="p-2 rounded-xl border border-border-subtle bg-surface-card text-content-secondary hover:text-content-primary transition-colors"
+                class="p-2 rounded-md border border-edge bg-surface text-content-secondary hover:text-brand transition-colors"
                 title="بازگشت به فهرست"
             >
-                <x-ui.icon name="arrow-right" class="w-4 h-4 rtl:block ltr:hidden" />
-                <x-ui.icon name="arrow-left" class="w-4 h-4 ltr:block rtl:hidden" />
+                <x-ui.icon name="arrow-right" size="sm" class="rtl:block ltr:hidden" />
+                <x-ui.icon name="arrow-left" size="sm" class="ltr:block rtl:hidden" />
             </a>
             <div>
-                <h1 class="text-xl font-bold text-content-primary">
+                <h1 class="text-xl font-bold text-content-heading">
                     {{ $isEdit ? 'ویرایش اطلاعات ' : 'ثبت ' }} {{ $config->singularLabel() }}
                 </h1>
                 <p class="text-xs text-content-secondary mt-0.5">
@@ -28,9 +28,9 @@
     </div>
 
     <!-- Form Card -->
-    <div class="rounded-3xl bg-surface-card border border-border-subtle p-6 md:p-8 shadow-sm">
+    <x-ui.card class="p-6 md:p-8">
         @if ($errors->any())
-            <div class="mb-6 p-4 rounded-2xl bg-danger/10 border border-danger/20 text-danger text-sm">
+            <div class="mb-6 p-4 rounded-md bg-status-error/15 border border-status-error/30 text-status-error text-sm">
                 <div class="font-bold mb-1">خطا در اعتبارسنجی فرم:</div>
                 <ul class="list-disc list-inside text-xs space-y-1">
                     @foreach ($errors->all() as $err)
@@ -158,23 +158,26 @@
             </div>
 
             <!-- Submit Buttons -->
-            <div class="pt-6 border-t border-border-subtle flex items-center justify-end gap-3">
-                <a 
+            <div class="pt-6 border-t border-edge flex items-center justify-end gap-3">
+                <x-ui.button 
+                    as="a"
                     href="{{ route('admin.crud.index', $config->slug()) }}"
-                    class="px-5 py-2.5 rounded-xl border border-border-subtle text-content-secondary hover:text-content-primary text-sm font-medium transition-colors"
+                    variant="outline"
+                    size="md"
                 >
                     انصراف
-                </a>
+                </x-ui.button>
 
-                <button 
+                <x-ui.button 
                     type="submit"
-                    class="px-6 py-2.5 rounded-xl bg-brand text-white font-medium text-sm shadow-glow hover:opacity-95 transition-all flex items-center gap-2"
+                    variant="accent"
+                    size="md"
+                    iconLeading="check"
                 >
-                    <x-ui.icon name="check" class="w-4 h-4" />
-                    <span>{{ $isEdit ? 'ذخیره تغییرات' : 'ثبت و ایجاد' }}</span>
-                </button>
+                    {{ $isEdit ? 'ذخیره تغییرات' : 'ثبت و ایجاد' }}
+                </x-ui.button>
             </div>
         </form>
-    </div>
+    </x-ui.card>
 </div>
 @endsection

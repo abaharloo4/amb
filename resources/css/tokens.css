@@ -34,6 +34,9 @@
     --text-heading: #18424E;
 
     --border-color: #DCE5E1;
+    --border-strong: #BAC9C3;
+    --bg-hover: rgba(24, 66, 78, 0.05);
+    --bg-active: rgba(24, 66, 78, 0.1);
     --link-color: #29665F;
     --focus-ring: #8A5A00;
 
@@ -104,6 +107,9 @@
     --text-heading: #F4F7F6;
 
     --border-color: #3A4442;
+    --border-strong: #4E5C59;
+    --bg-hover: rgba(255, 255, 255, 0.05);
+    --bg-active: rgba(255, 255, 255, 0.1);
     --link-color: #79CCBB;
     --focus-ring: #FFC45C;
 

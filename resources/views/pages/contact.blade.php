@@ -3,9 +3,9 @@
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
     <!-- Header -->
-    <div class="space-y-3">
-        <span class="text-xs font-bold text-brand uppercase tracking-wider">ارتباط و همکاری</span>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-content-primary tracking-tight">
+    <div class="space-y-3" data-motion="scrollReveal">
+        <x-ui.badge tone="brand" size="sm">ارتباط مستقیم و همکاری</x-ui.badge>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-content-heading tracking-tight">
             تماس و مشاوره فنی
         </h1>
         <p class="text-sm sm:text-base text-content-secondary leading-relaxed">
@@ -14,43 +14,43 @@
     </div>
 
     <!-- Contact Info Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="p-5 rounded-2xl bg-surface-card border border-border-subtle flex items-center gap-4">
-            <div class="w-10 h-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0">
-                <x-ui.icon name="mail" class="w-5 h-5" />
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" data-motion="scrollReveal">
+        <x-ui.card class="p-5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0">
+                <x-ui.icon name="mail" size="sm" />
             </div>
             <div class="overflow-hidden">
-                <span class="text-[11px] text-content-tertiary block">ایمیل مستقیم</span>
-                <a href="mailto:admin@abaharlou.ir" class="text-xs font-bold text-content-primary hover:text-brand truncate block">admin@abaharlou.ir</a>
+                <span class="text-[11px] text-content-secondary block">ایمیل مستقیم</span>
+                <a href="mailto:admin@abaharlou.ir" class="text-xs font-bold text-content-heading hover:text-brand truncate block">admin@abaharlou.ir</a>
             </div>
-        </div>
+        </x-ui.card>
 
-        <div class="p-5 rounded-2xl bg-surface-card border border-border-subtle flex items-center gap-4">
-            <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
-                <x-ui.icon name="github" class="w-5 h-5" />
+        <x-ui.card class="p-5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-brand-accent/15 text-brand-accent flex items-center justify-center flex-shrink-0">
+                <x-ui.icon name="github" size="sm" />
             </div>
             <div class="overflow-hidden">
-                <span class="text-[11px] text-content-tertiary block">گیت‌هاب</span>
-                <a href="https://github.com/abaharloo4" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-content-primary hover:text-accent truncate block">github.com/abaharloo4</a>
+                <span class="text-[11px] text-content-secondary block">گیت‌هاب</span>
+                <a href="https://github.com/abaharloo4" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-content-heading hover:text-brand-accent truncate block">github.com/abaharloo4</a>
             </div>
-        </div>
+        </x-ui.card>
 
-        <div class="p-5 rounded-2xl bg-surface-card border border-border-subtle flex items-center gap-4">
-            <div class="w-10 h-10 rounded-xl bg-success/10 text-success flex items-center justify-center flex-shrink-0">
-                <x-ui.icon name="clock" class="w-5 h-5" />
+        <x-ui.card class="p-5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-status-success/15 text-status-success flex items-center justify-center flex-shrink-0">
+                <x-ui.icon name="clock" size="sm" />
             </div>
             <div>
-                <span class="text-[11px] text-content-tertiary block">زمان پاسخگویی</span>
-                <span class="text-xs font-bold text-content-primary">کمتر از ۲۴ ساعت کاری</span>
+                <span class="text-[11px] text-content-secondary block">زمان پاسخگویی</span>
+                <span class="text-xs font-bold text-content-heading">کمتر از ۲۴ ساعت کاری</span>
             </div>
-        </div>
+        </x-ui.card>
     </div>
 
     <!-- Contact Form Card -->
-    <div class="p-8 rounded-3xl bg-surface-card border border-border-subtle shadow-sm">
+    <x-ui.card class="p-8 sm:p-10 shadow-sm" data-motion="scrollReveal">
         @if (session('success'))
-            <div class="mb-6 p-4 rounded-2xl bg-success/10 border border-success/20 text-success text-sm flex items-center gap-3">
-                <x-ui.icon name="check-circle" class="w-5 h-5 flex-shrink-0" />
+            <div class="mb-6 p-4 rounded-md bg-status-success/15 border border-status-success/30 text-status-success text-sm flex items-center gap-3">
+                <x-ui.icon name="check-circle-2" size="sm" class="flex-shrink-0" />
                 <span>{{ session('success') }}</span>
             </div>
         @endif
@@ -59,111 +59,91 @@
             @csrf
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                    <label for="name" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        نام و نام خانوادگی <span class="text-danger">*</span>
-                    </label>
-                    <input 
+                <x-ui.field label="نام و نام خانوادگی" required="true" id="name">
+                    <x-ui.input 
                         type="text" 
                         id="name" 
                         name="name" 
                         required 
                         placeholder="مثال: علی رضایی"
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                        iconLeading="users"
                     />
-                </div>
+                </x-ui.field>
 
-                <div>
-                    <label for="email" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        آدرس ایمیل <span class="text-danger">*</span>
-                    </label>
-                    <input 
+                <x-ui.field label="آدرس ایمیل" required="true" id="email">
+                    <x-ui.input 
                         type="email" 
                         id="email" 
                         name="email" 
                         required 
                         dir="ltr"
                         placeholder="name@company.com"
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                        iconLeading="mail"
                     />
-                </div>
+                </x-ui.field>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                    <label for="phone" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        شماره تماس (اختیاری)
-                    </label>
-                    <input 
+                <x-ui.field label="شماره تماس (اختیاری)" id="phone">
+                    <x-ui.input 
                         type="text" 
                         id="phone" 
                         name="phone" 
                         dir="ltr"
                         placeholder="0912..."
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                        iconLeading="phone"
                     />
-                </div>
+                </x-ui.field>
 
-                <div>
-                    <label for="service_type" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        نوع همکاری مورد نظر
-                    </label>
-                    <select 
-                        id="service_type" 
-                        name="service_type" 
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
-                    >
+                <x-ui.field label="نوع همکاری مورد نظر" id="service_type">
+                    <x-ui.select id="service_type" name="service_type">
                         <option value="custom_development">توسعه نرم‌افزار و وبسایت اختصاصی</option>
                         <option value="architecture_consulting">مشاوره معماری سیستم و دیتابیس</option>
                         <option value="threejs_creative">پیاده‌سازی Three.js و گرافیک تعاملی</option>
                         <option value="performance_optimization">بهینه‌سازی کارایی و امنیت</option>
                         <option value="other">سایر موارد</option>
-                    </select>
-                </div>
+                    </x-ui.select>
+                </x-ui.field>
             </div>
 
-            <div>
-                <label for="subject" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                    موضوع پیام <span class="text-danger">*</span>
-                </label>
-                <input 
+            <x-ui.field label="موضوع پیام" required="true" id="subject">
+                <x-ui.input 
                     type="text" 
                     id="subject" 
                     name="subject" 
                     required 
                     placeholder="عنوان خلاصه درخواست شما"
-                    class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                    iconLeading="book-open"
                 />
-            </div>
+            </x-ui.field>
 
-            <div>
-                <label for="message" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                    شرح درخواست و جزئیات پروژه <span class="text-danger">*</span>
-                </label>
+            <x-ui.field label="شرح درخواست و جزئیات پروژه" required="true" id="message">
                 <textarea 
                     id="message" 
                     name="message" 
                     rows="6" 
                     required
                     placeholder="توضیحات مربوط به اهداف، نیازمندی‌ها یا ددلاین مدنظر خود را بنویسید..."
-                    class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                    class="w-full bg-surface text-content-primary rounded-md p-3.5 text-sm border border-edge transition-all duration-fast placeholder:text-content-disabled focus:outline-none focus:ring-2 focus:ring-brand-accent/70 focus:border-brand-primary"
                 ></textarea>
-            </div>
+            </x-ui.field>
 
-            <div class="flex items-center justify-between pt-4">
-                <span class="text-[11px] text-content-tertiary">
-                    اطلاعات شما کاملاً محرمانه نزد ما نگهداری می‌شود.
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-edge">
+                <span class="text-[11px] text-content-secondary flex items-center gap-1.5">
+                    <x-ui.icon name="shield" size="xs" />
+                    <span>اطلاعات شما کاملاً محرمانه نزد ما نگهداری می‌شود.</span>
                 </span>
 
-                <button 
+                <x-ui.button 
                     type="submit"
-                    class="px-8 py-3 rounded-xl bg-gradient-to-r from-brand to-brand-glow text-white font-semibold text-sm shadow-glow hover:opacity-95 active:scale-95 transition-all flex items-center gap-2"
+                    variant="accent"
+                    size="lg"
+                    iconTrailing="send"
                 >
-                    <x-ui.icon name="send" class="w-4 h-4" />
-                    <span>ارسال پیام</span>
-                </button>
+                    ارسال پیام و استعلام
+                </x-ui.button>
             </div>
         </form>
-    </div>
+    </x-ui.card>
 </div>
 @endsection

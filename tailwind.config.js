@@ -10,23 +10,40 @@ export default {
         extend: {
             colors: {
                 primary: 'var(--bg-primary)',
-                surface: 'var(--bg-surface)',
+                surface: {
+                    DEFAULT: 'var(--bg-surface)',
+                    base: 'var(--bg-primary)',
+                    card: 'var(--bg-surface)',
+                    canvas: 'var(--bg-primary)',
+                    subtle: 'var(--bg-elevated)',
+                    elevated: 'var(--bg-elevated)',
+                },
                 elevated: 'var(--bg-elevated)',
                 brand: {
                     DEFAULT: 'var(--brand-primary)',
                     primary: 'var(--brand-primary)',
                     secondary: 'var(--brand-secondary)',
                     accent: 'var(--brand-accent)',
+                    glow: 'var(--teal-highlight)',
+                },
+                accent: {
+                    DEFAULT: 'var(--brand-accent)',
                 },
                 content: {
                     primary: 'var(--text-primary)',
                     heading: 'var(--text-heading)',
                     secondary: 'var(--text-secondary)',
+                    tertiary: 'var(--text-secondary)',
                     disabled: 'var(--text-disabled)',
                     onbrand: 'var(--text-on-brand)',
                 },
                 edge: {
                     DEFAULT: 'var(--border-color)',
+                    strong: 'var(--border-strong)',
+                    subtle: 'var(--border-color)',
+                },
+                border: {
+                    subtle: 'var(--border-color)',
                     strong: 'var(--border-strong)',
                 },
                 link: 'var(--link-color)',

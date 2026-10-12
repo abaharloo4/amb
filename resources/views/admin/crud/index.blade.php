@@ -8,8 +8,8 @@
     <!-- Header / Actions -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl font-bold text-content-primary flex items-center gap-2.5">
-                <x-ui.icon :name="$config->icon()" class="w-6 h-6 text-brand" />
+            <h1 class="text-xl font-bold text-content-heading flex items-center gap-2.5">
+                <x-ui.icon :name="$config->icon()" size="md" class="text-brand" />
                 <span>{{ $config->pluralLabel() }}</span>
             </h1>
             <p class="text-xs text-content-secondary mt-1">
@@ -18,44 +18,41 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <a 
+            <x-ui.button 
+                as="a"
                 href="{{ route('admin.crud.create', $config->slug()) }}"
-                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand text-white font-medium text-sm hover:opacity-95 shadow-glow transition-all"
+                variant="accent"
+                size="md"
+                iconLeading="plus"
             >
-                <x-ui.icon name="plus" class="w-4 h-4" />
-                <span>افزودن {{ $config->singularLabel() }} جدید</span>
-            </a>
+                افزودن {{ $config->singularLabel() }} جدید
+            </x-ui.button>
         </div>
     </div>
 
     <!-- Search & Filters Toolbar -->
-    <div class="p-4 rounded-2xl bg-surface-card border border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+    <x-ui.card class="p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <form method="GET" action="{{ route('admin.crud.index', $config->slug()) }}" class="w-full sm:w-80">
-            <div class="relative">
-                <span class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-content-tertiary">
-                    <x-ui.icon name="search" class="w-4 h-4" />
-                </span>
-                <input 
-                    type="text" 
-                    name="q" 
-                    value="{{ $search }}"
-                    placeholder="جستجو در رکوردها..."
-                    class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary placeholder-content-tertiary text-xs ps-9 pe-3 py-2 outline-none"
-                />
-            </div>
+            <x-ui.input 
+                type="text" 
+                name="q" 
+                value="{{ $search }}"
+                placeholder="جستجو در رکوردها..."
+                iconLeading="search"
+            />
         </form>
 
-        <div class="text-xs text-content-tertiary">
-            تعداد کل رکوردها: <span class="font-bold text-content-primary">{{ $items->total() }}</span>
+        <div class="text-xs text-content-secondary">
+            تعداد کل رکوردها: <span class="font-bold text-content-heading font-mono">{{ $items->total() }}</span>
         </div>
-    </div>
+    </x-ui.card>
 
     <!-- Data Table -->
-    <div class="rounded-3xl bg-surface-card border border-border-subtle overflow-hidden shadow-sm">
+    <x-ui.card class="overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-start border-collapse text-sm">
                 <thead>
-                    <tr class="border-b border-border-subtle bg-surface-subtle/50 text-content-secondary text-xs">
+                    <tr class="border-b border-edge bg-surface-subtle/50 text-content-secondary text-xs">
                         @foreach ($config->columns() as $colKey => $colDef)
                             <th class="py-3.5 px-4 text-start font-semibold">
                                 {{ $colDef['label'] }}
@@ -64,29 +61,25 @@
                         <th class="py-3.5 px-4 text-end font-semibold">عملیات</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-border-subtle">
+                <tbody class="divide-y divide-edge">
                     @forelse ($items as $row)
-                        <tr class="hover:bg-surface-subtle/40 transition-colors">
+                        <tr class="hover:bg-action-hover transition-colors">
                             @foreach ($config->columns() as $colKey => $colDef)
                                 <td class="py-3.5 px-4 text-content-primary">
                                     @if (isset($colDef['callback']))
                                         {!! $colDef['callback']($row) !!}
                                     @elseif ($colDef['type'] === 'boolean')
                                         @if ($row->{$colKey})
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-success/10 text-success border border-success/20">
-                                                بله
-                                            </span>
+                                            <x-ui.badge tone="success" size="sm">بله</x-ui.badge>
                                         @else
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-surface-subtle text-content-tertiary">
-                                                خیر
-                                            </span>
+                                            <x-ui.badge tone="neutral" size="sm">خیر</x-ui.badge>
                                         @endif
                                     @elseif ($colDef['type'] === 'badge')
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand/10 text-brand">
+                                        <x-ui.badge tone="brand" size="sm">
                                             {{ $row->{$colKey} }}
-                                        </span>
+                                        </x-ui.badge>
                                     @elseif ($colDef['type'] === 'date')
-                                        <span class="text-xs text-content-tertiary">
+                                        <span class="text-xs font-mono text-content-secondary">
                                             {{ $row->{$colKey} ? \App\Support\Jalali::fromDateTime($row->{$colKey}) : '-' }}
                                         </span>
                                     @else
@@ -99,10 +92,10 @@
                                 <div class="inline-flex items-center gap-1.5">
                                     <a 
                                         href="{{ route('admin.crud.edit', ['resource' => $config->slug(), 'id' => $row->id]) }}"
-                                        class="p-2 rounded-lg text-content-secondary hover:text-brand hover:bg-brand/10 transition-colors"
+                                        class="p-2 rounded-md text-content-secondary hover:text-brand hover:bg-action-hover transition-colors"
                                         title="ویرایش"
                                     >
-                                        <x-ui.icon name="edit" class="w-4 h-4" />
+                                        <x-ui.icon name="pencil" size="xs" />
                                     </a>
 
                                     <form 
@@ -115,10 +108,10 @@
                                         @method('DELETE')
                                         <button 
                                             type="submit" 
-                                            class="p-2 rounded-lg text-content-secondary hover:text-danger hover:bg-danger/10 transition-colors"
+                                            class="p-2 rounded-md text-content-secondary hover:text-status-error hover:bg-status-error/10 transition-colors"
                                             title="حذف"
                                         >
-                                            <x-ui.icon name="trash" class="w-4 h-4" />
+                                            <x-ui.icon name="trash-2" size="xs" />
                                         </button>
                                     </form>
                                 </div>
@@ -126,7 +119,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ count($config->columns()) + 1 }}" class="py-12 text-center text-content-tertiary text-sm">
+                            <td colspan="{{ count($config->columns()) + 1 }}" class="py-12 text-center text-content-secondary text-sm">
                                 رکوردی یافت نشد.
                             </td>
                         </tr>
@@ -136,10 +129,10 @@
         </div>
 
         @if ($items->hasPages())
-            <div class="p-4 border-t border-border-subtle bg-surface-subtle/30">
+            <div class="p-4 border-t border-edge bg-surface-subtle/30">
                 {{ $items->links() }}
             </div>
         @endif
-    </div>
+    </x-ui.card>
 </div>
 @endsection

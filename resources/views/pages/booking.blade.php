@@ -3,9 +3,9 @@
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
     <!-- Header -->
-    <div class="space-y-3">
-        <span class="text-xs font-bold text-brand uppercase tracking-wider">مشاوره آنلاین</span>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-content-primary tracking-tight">
+    <div class="space-y-3" data-motion="scrollReveal">
+        <x-ui.badge tone="brand" size="sm">مشاوره تخصصی و جلسه آنلاین</x-ui.badge>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-content-heading tracking-tight">
             رزرو جلسه ویدئویی و مشاوره تخصصی
         </h1>
         <p class="text-sm sm:text-base text-content-secondary leading-relaxed">
@@ -14,16 +14,16 @@
     </div>
 
     <!-- Booking Card Form -->
-    <div class="p-8 rounded-3xl bg-surface-card border border-border-subtle shadow-sm">
+    <x-ui.card class="p-8 sm:p-10" data-motion="scrollReveal">
         @if (session('success'))
-            <div class="mb-6 p-4 rounded-2xl bg-success/10 border border-success/20 text-success text-sm flex items-center gap-3">
-                <x-ui.icon name="check-circle" class="w-5 h-5 flex-shrink-0" />
+            <div class="mb-6 p-4 rounded-md bg-status-success/15 border border-status-success/30 text-status-success text-sm flex items-center gap-3">
+                <x-ui.icon name="check-circle-2" size="sm" class="flex-shrink-0" />
                 <span>{{ session('success') }}</span>
             </div>
         @endif
 
         @if ($errors->any())
-            <div class="mb-6 p-4 rounded-2xl bg-danger/10 border border-danger/20 text-danger text-sm">
+            <div class="mb-6 p-4 rounded-md bg-status-error/15 border border-status-error/30 text-status-error text-sm">
                 <ul class="list-disc list-inside text-xs space-y-1">
                     @foreach ($errors->all() as $err)
                         <li>{{ $err }}</li>
@@ -36,26 +36,20 @@
             @csrf
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                    <label for="client_name" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        نام و نام خانوادگی <span class="text-danger">*</span>
-                    </label>
-                    <input 
+                <x-ui.field label="نام و نام خانوادگی" required="true" id="client_name">
+                    <x-ui.input 
                         type="text" 
                         id="client_name" 
                         name="client_name" 
                         required 
                         value="{{ old('client_name') }}"
                         placeholder="مثال: سارا محمدی"
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                        iconLeading="users"
                     />
-                </div>
+                </x-ui.field>
 
-                <div>
-                    <label for="client_email" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        ایمیل معتبر (جهت ارسال لینک جلسه) <span class="text-danger">*</span>
-                    </label>
-                    <input 
+                <x-ui.field label="ایمیل معتبر (جهت ارسال لینک جلسه)" required="true" id="client_email">
+                    <x-ui.input 
                         type="email" 
                         id="client_email" 
                         name="client_email" 
@@ -63,87 +57,72 @@
                         dir="ltr"
                         value="{{ old('client_email') }}"
                         placeholder="sara@example.com"
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                        iconLeading="mail"
                     />
-                </div>
+                </x-ui.field>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                <div>
-                    <label for="client_phone" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        شماره تماس هماهنگی
-                    </label>
-                    <input 
+                <x-ui.field label="شماره تماس هماهنگی" id="client_phone">
+                    <x-ui.input 
                         type="text" 
                         id="client_phone" 
                         name="client_phone" 
                         dir="ltr"
                         value="{{ old('client_phone') }}"
                         placeholder="0912..."
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                        iconLeading="phone"
                     />
-                </div>
+                </x-ui.field>
 
-                <div>
-                    <label for="slot_date" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        تاریخ جلسه <span class="text-danger">*</span>
-                    </label>
-                    <input 
+                <x-ui.field label="تاریخ جلسه" required="true" id="slot_date">
+                    <x-ui.input 
                         type="date" 
                         id="slot_date" 
                         name="slot_date" 
                         required 
                         min="{{ date('Y-m-d', strtotime('+1 day')) }}"
                         value="{{ old('slot_date', date('Y-m-d', strtotime('+2 days'))) }}"
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-2.5 text-sm outline-none"
+                        iconLeading="calendar"
                     />
-                </div>
+                </x-ui.field>
 
-                <div>
-                    <label for="slot_time" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                        ساعت جلسه <span class="text-danger">*</span>
-                    </label>
-                    <select 
-                        id="slot_time" 
-                        name="slot_time" 
-                        required 
-                        class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-2.5 text-sm outline-none"
-                    >
+                <x-ui.field label="ساعت جلسه" required="true" id="slot_time">
+                    <x-ui.select id="slot_time" name="slot_time" required="true">
                         <option value="11:00">۱۱:۰۰ صبح</option>
                         <option value="14:00">۱۴:۰۰ بعدازظهر</option>
                         <option value="16:00">۱۶:۰۰ عصر</option>
                         <option value="18:00">۱۸:۰۰ عصر</option>
-                    </select>
-                </div>
+                    </x-ui.select>
+                </x-ui.field>
             </div>
 
-            <div>
-                <label for="notes" class="block text-xs font-semibold text-content-secondary mb-1.5">
-                    موضوع یا سرفصل‌های مدنظر برای طرح در جلسه
-                </label>
+            <x-ui.field label="موضوع یا سرفصل‌های مدنظر برای طرح در جلسه" id="notes">
                 <textarea 
                     id="notes" 
                     name="notes" 
                     rows="4" 
                     placeholder="مختصری درباره موضوع پروژه، چالش‌های فنی یا اهداف جلسه بنویسید..."
-                    class="w-full rounded-xl bg-surface-subtle border border-border-subtle focus:border-brand focus:ring-1 focus:ring-brand text-content-primary p-3 text-sm outline-none"
+                    class="w-full bg-surface text-content-primary rounded-md p-3.5 text-sm border border-edge transition-all duration-fast placeholder:text-content-disabled focus:outline-none focus:ring-2 focus:ring-brand-accent/70 focus:border-brand-primary"
                 >{{ old('notes') }}</textarea>
-            </div>
+            </x-ui.field>
 
-            <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
-                <span class="text-xs text-content-tertiary">
-                    جلسه از طریق Google Meet یا پلتفرم آنلاین برگزار می‌شود.
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-edge">
+                <span class="text-xs text-content-secondary flex items-center gap-1.5">
+                    <x-ui.icon name="video" size="xs" />
+                    <span>جلسه از طریق Google Meet یا پلتفرم آنلاین برگزار می‌شود.</span>
                 </span>
 
-                <button 
+                <x-ui.button 
                     type="submit"
-                    class="px-8 py-3 rounded-xl bg-gradient-to-r from-brand to-brand-glow text-white font-semibold text-sm shadow-glow hover:opacity-95 active:scale-95 transition-all flex items-center gap-2"
+                    variant="accent"
+                    size="lg"
+                    iconLeading="calendar"
                 >
-                    <x-ui.icon name="calendar" class="w-4 h-4" />
-                    <span>تایید و رزرو قطعی جلسه</span>
-                </button>
+                    تایید و رزرو قطعی جلسه
+                </x-ui.button>
             </div>
         </form>
-    </div>
+    </x-ui.card>
 </div>
 @endsection

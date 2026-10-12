@@ -31,16 +31,12 @@
             class="fixed inset-y-0 start-0 z-50 w-72 bg-surface-base border-e border-border-subtle flex flex-col transition-transform duration-300 ease-in-out lg:static lg:z-auto"
         >
             <!-- Logo Header -->
-            <div class="h-16 px-6 border-b border-border-subtle flex items-center justify-between">
+            <div class="h-16 px-6 border-b border-edge flex items-center justify-between">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand to-brand-glow p-[1px] shadow-glow">
-                        <div class="w-full h-full bg-surface-base rounded-xl flex items-center justify-center">
-                            <x-ui.icon name="shield" class="w-5 h-5 text-brand" />
-                        </div>
-                    </div>
+                    <x-ui.amb-logo size="sm" variant="gradient" />
                     <div>
-                        <span class="font-bold text-base tracking-tight text-content-primary">AMB Admin</span>
-                        <span class="block text-[10px] text-brand uppercase tracking-wider font-semibold">Core v1.0</span>
+                        <span class="font-bold text-base tracking-tight text-content-heading">AMB Admin</span>
+                        <span class="block text-[10px] text-brand-accent uppercase tracking-wider font-semibold font-mono">Core v1.0</span>
                     </div>
                 </a>
 
